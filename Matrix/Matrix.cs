@@ -8,77 +8,6 @@ namespace Matrix
 {
     class Matrix
     {
-        public int DeterminateOfMatrix()
-
-        {
-            int firstNumber;
-            int secondNumber;
-            int thirdNumber;
-            int fourthNumber;
-            int[,] numbers = new int[4, 4]
-            {
-                {3, 1, 2, 0 },
-                {4, 4, 6, 1 },
-                {2, 5, 7, 2 },
-                {1, 8, 3, 7}
-            };
-            
-            for (int i = 0; i < numbers.GetLength(0); i++)
-            {
-                for (int k = 0; k < numbers.GetLength(1); k++)
-                {
-                   if (i == 0 && k == 0)
-                    {
-                        firstNumber = +numbers[i, k];
-                        Console.WriteLine(firstNumber);
-
-                        return firstNumber;
-                    }
-                    if (i == 1 && k == 1)
-                    {
-                        secondNumber = -numbers[i, k];
-                        Console.WriteLine(secondNumber);
-                        return secondNumber;
-                    }
-                    if (i == 2 && k == 2) {
-                       thirdNumber = -numbers[i, k];
-                        Console.WriteLine(thirdNumber);
-
-                        return thirdNumber;
-                    }
-                    if (i == 3 && k == 3)
-                    {
-                        fourthNumber = -numbers[i, k];
-                        Console.WriteLine(fourthNumber);
-
-                        return fourthNumber;
-
-                    }
-                }
-            }
-            return 0;
-
-        }
-
-        public void MultiplyMatrix()
-        {
-            int[,] matrixA = new int[2,2] 
-            {
-                {2, 3 },
-                {4, 5 },
-            };
-
-            int[,] matrixB = new int[2, 2]
-            {
-                {6,1 },
-                {7, 3 },
-            };
-            var a = matrixA[0, 0] * matrixB[0,0] + matrixA[0,1] * matrixB[1,0];
-            var b = matrixA[0,0] * matrixB[0,1] + matrixA[0, 1] * matrixB[1, 1];
-            var c = matrixA[1, 0] * matrixB[0, 0] + matrixA[1, 1] * matrixB[1,0];
-            var d = matrixA[1, 0] * matrixB[0, 1] + matrixA[1, 1] * matrixB[1,1];
-            Console.WriteLine($"The result of multiply 2  matix is \n[{a} {b}] \n[{c} {d}]");   
-        }
         
         public int Determinant(int[][] mat)
         {
@@ -153,5 +82,37 @@ namespace Matrix
             }
             return minor;
         }
+
+        public void MultiplyMatrix(int[,] firstMat, int[,] secondMat)
+        {
+            int firstMatRows = firstMat.GetLength(0);
+            int firstMatCol = firstMat.GetLength(1);
+            int secondMatRows = secondMat.GetLength(0);
+            int secondMatCols = secondMat.GetLength(1);
+
+            if (firstMatCol != secondMatRows)
+            {
+                Console.WriteLine("These 2 matrice csnnot be multiplied");
+                return;
+            }
+
+            int[,] product = new int[firstMatRows, secondMatCols];
+
+            for (int i =0; i < firstMatRows; i++)
+            {
+                for (int j = 0; j < secondMatCols; j++)
+                {
+                    for(int k = 0; k < firstMatCol; k++)
+                    {
+                        product[i, j] += firstMat[i, k] * secondMat[k, j];
+                    }
+
+                    Console.Write(" " + product[i, j]);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
     }
 }
